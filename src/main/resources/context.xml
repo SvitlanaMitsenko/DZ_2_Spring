@@ -1,0 +1,39 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="spoon3" class="org.example.impl.Spoon" scope="prototype">
+        <constructor-arg type="org.example.enums.EFlatWareType" value ="SPOON"/>
+        <constructor-arg type="org.example.enums.ECountry" value ="GERMANY"/>
+        <constructor-arg type="org.example.enums.EMaterial" value="PLASTIC"/>
+    </bean>
+    <bean id="knife3" class="org.example.impl.Knife" scope="prototype">
+        <constructor-arg type="org.example.enums.EFlatWareType" value ="KNIFE"/>
+        <constructor-arg name = "handleMaterial" value="METAL"/>
+        <constructor-arg type="org.example.enums.ECountry" value ="ENGLAND"/>
+        <constructor-arg index="4" value = "30.0"/>
+        <constructor-arg index="3" value = "20.0"/>
+        <property name="bladeMaterial" value="CAST_IRON"/>
+    </bean>
+    <bean id="fork3" factory-method="onInit" class="org.example.impl.Fork" scope="prototype">
+       <property name="country" value="CHINA"></property>
+       <property name="handleMaterial" value="WOOD"></property>
+       <property name="type" value="FORK"></property>
+       <property name="prongLength" value="55"/>
+    </bean>
+
+    <util:list id="flatWareList" scope="singleton" list-class="java.util.ArrayList">
+        <ref bean="spoon3"/>
+        <ref bean="knife3"/>
+        <ref bean="fork3"/>
+    </util:list>
+
+    <util:map id="myMap" scope="singleton" map-class="java.util.HashMap">
+        <entry key-ref="spoon3" value="5"></entry>
+        <entry key-ref="knife3" value="10"></entry>
+        <entry key-ref="fork3" value="7"></entry>
+    </util:map>
+
+
+</beans>
